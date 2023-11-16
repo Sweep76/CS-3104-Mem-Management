@@ -1,0 +1,41 @@
+1. First Fit:
+Definition: First Fit is a memory allocation algorithm where the operating system allocates the first available block of memory that is large enough to accommodate a process.
+
+Process:
+
+The OS starts from the beginning of the memory and allocates the first block that is large enough to hold the process.
+The size of the allocated block is adjusted to match the size of the process.
+If the allocated block is larger than the process, the remaining portion becomes a free block.
+Example:
+Consider a memory with the following free blocks: [100KB, 50KB, 200KB, 80KB]. If a process of 120KB arrives, First Fit would allocate the first block of 100KB.
+
+2. Next Fit:
+Definition: Next Fit is similar to First Fit, but instead of starting from the beginning every time, it continues the search for a suitable block from the point where the last allocation occurred.
+
+Process:
+
+The OS starts the search for a suitable block from the last allocated block.
+It continues searching until a block that is large enough is found.
+The size of the allocated block is adjusted, and if there is a remaining portion, it becomes a free block.
+Example:
+Using the same memory blocks as in the First Fit example, if a process of 120KB arrives after allocating the first block, Next Fit would start the search from the second block of 50KB.
+
+3. Best Fit:
+Definition: Best Fit is a memory allocation algorithm that allocates the smallest available block that is large enough to hold the process.
+
+Process:
+
+The OS searches for the smallest block that can accommodate the process.
+If the found block is larger than the process, it is split into two parts – the allocated block and the remaining free block.
+Example:
+Using the same memory blocks, if a process of 120KB arrives, Best Fit would allocate the 200KB block and split it into a 120KB allocated block and a 80KB free block.
+
+4. Worst Fit:
+Definition: Worst Fit is a memory allocation algorithm that allocates the largest available block to the process.
+
+Process:
+
+The OS searches for the largest block that can accommodate the process.
+The allocated block is adjusted to match the size of the process, and any remaining portion becomes a free block.
+Example:
+Using the same memory blocks, if a process of 120KB arrives, Worst Fit would allocate the 200KB block.
