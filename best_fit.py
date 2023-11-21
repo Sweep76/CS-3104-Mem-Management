@@ -1,3 +1,4 @@
+
 # This code initializes a MemoryManager with an initial list of memory blocks. 
 # It then iterates through a list of processes, attempting to allocate each process using the First Fit algorithm. 
 # It prints the process size, allocation status, and the updated memory state after each allocation attempt.
@@ -21,6 +22,8 @@ class MemoryManager:
         print(f"Allocated {process_size}KB in block {best_fit_index}. Remaining space: {allocated_size - process_size}KB")
         print(f"Updated memory state: {self.memory_blocks}\n")
         return True
+
+
 
 # Example usage:
 memory_blocks = [100, 50, 200, 80] # memory allocation blocks available

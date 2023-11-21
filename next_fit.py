@@ -4,7 +4,7 @@
 # considering the next available block from the previous allocation. 
 # Adjust the processes list to test different process sizes.
 
-
+    
 
 class MemoryManager:
     def __init__(self, memory_blocks):
