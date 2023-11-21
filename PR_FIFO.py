@@ -1,28 +1,31 @@
-from collections import OrderedDict
+from queue import Queue
 
-class LRUCache:
+class FIFOCache:
     def __init__(self, capacity):
         self.capacity = capacity
-        self.cache = OrderedDict()
+        self.cache = set()
+        self.queue = Queue()
         self.hits = 0
         self.misses = 0
 
     def refer(self, page):
         if page in self.cache:
-            self.cache.move_to_end(page)
             self.hits += 1
         else:
             self.misses += 1
             if len(self.cache) >= self.capacity:
-                self.cache.popitem(last=False)
-            self.cache[page] = True
+                removed_page = self.queue.queue[0]
+                self.queue.get()
+                self.cache.remove(removed_page)
+            self.cache.add(page)
+            self.queue.put(page)
 
     def display_table(self):
         print("Incoming\tPages in Memory")
         for page in incomingStream:
             self.refer(page)
             print(page, end="\t\t")
-            for p in self.cache:
+            for p in self.queue.queue:
                 print(p, end="\t")
             print()
 
@@ -30,7 +33,7 @@ class LRUCache:
         total_requests = self.hits + self.misses
         hit_percentage = (self.hits / total_requests) * 100 if total_requests > 0 else 0
         miss_percentage = (self.misses / total_requests) * 100 if total_requests > 0 else 0
-            
+        
         print("\nPage Faults:", self.misses)
         print("Hits:", self.hits)
         print("Hit Percentage:", f"{hit_percentage:.2f}%")
@@ -40,6 +43,6 @@ class LRUCache:
 incomingStream = [7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1]
 cache_capacity = 3
 
-cache = LRUCache(cache_capacity)
+cache = FIFOCache(cache_capacity)
 cache.display_table()
 cache.display_stats()
