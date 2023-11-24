@@ -50,6 +50,35 @@ void initHashTable(Hashtable *ht){
         ht->table[i] = NULL;
     }
 }
+
+void deleteMember(Hashtable* ht, char* productCode){
+    int hash = djb2_hash(productCode);
+    Node* current = ht->table[hash];
+    Node *prev = NULL;
+
+    while(current != NULL && strcmp(current->prod.productCode, productCode) != 0){
+        prev = current;
+        current = current->next;
+    }
+
+    if(current == NULL){
+        //Product code not found
+        printf("Product code %s not found for deletion", productCode);
+        return;
+    }
+
+    if(prev == NULL){
+        //Node to be delted is the first node in the bucket
+        ht->table[hash] = current->next;
+    } else {
+        // Node to be deleted is in the middle or end of the linked list 
+        prev->next = current->next;
+    }
+
+    free(current);
+    printf("Product code %s deleted successfully. \n", productCode);
+}
+
 void displayHashTable(Hashtable ht) {
     printf("\n-----------------------------------------------\n");
     for (int i = 0; i < TABLE_SIZE; i++) {
@@ -62,6 +91,7 @@ void displayHashTable(Hashtable ht) {
         }
         printf("NULL\n");
     }
+    printf("\n");
 }
 int productBinarySearch(Hashtable ht, const char* key) {
     for (int i = 0; i < TABLE_SIZE; i++) {
@@ -108,8 +138,10 @@ int main()
 
     insert(&ht, "pc109", 103, 3, 3.00, 17);
     insert(&ht, "pc110", 104, 4, 4.00, 19);
+    insert(&ht, "pc111", 109, 5, 8.25, 20);
     displayHashTable(ht);
     findAndPrintOrderLineNumber(ht, "pc110");
+    findAndPrintOrderLineNumber(ht, "pc111");
 
     return 0;
 }
